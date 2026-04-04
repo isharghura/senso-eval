@@ -19,6 +19,10 @@ if not SENSO_API_KEY:
 
 SENSO_API_URL = "https://apiv2.senso.ai/api/v1/org/search"
 
+# Load config
+with open("config.json") as f:
+    config = json.load(f)
+
 
 def load_context() -> str:
     docs = []
@@ -122,9 +126,12 @@ def run_evaluation():
         ("openai", query_openai)
     ]
     
-    print(f"Running evaluation on {len(questions)} questions for {len(models)} models...\n")
+    # Filter enabled models
+    enabled_models = [(name, fn) for name, fn in models if config["models"].get(name, False)]
     
-    for model_name, query_fn in models:
+    print(f"Running evaluation on {len(questions)} questions for {len(enabled_models)} models...\n")
+    
+    for model_name, query_fn in enabled_models:
         print(f"Evaluating {model_name}...")
         for q in questions:
             question_id = q.get("id")

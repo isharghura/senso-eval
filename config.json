@@ -1,0 +1,7 @@
+{
+  "models": {
+    "senso": true,
+    "claude": false,
+    "openai": false
+  }
+}
