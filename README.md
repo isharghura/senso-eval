@@ -1,53 +1,33 @@
 # SensoEval
 
-Simple prototype to evaluate how well Senso answers questions over a set of documents.
+Evaluate Senso, Claude, and OpenAI on question answering over company documents.
 
-## Features
+## Setup
 
-- **Load Documents**: Sample documents in `data/docs/` (txt/markdown)
-- **Test Questions**: ~10-15 questions in `data/questions.json` with optional expected answers
-- **Query Senso**: Send each question to Senso API and store results
-- **Evaluate Quality**: Compute answer similarity using sentence-transformers embeddings
-- **Check Consistency**: Query same question twice, compare answers
-- **Failure Detection**: Flag low quality or low consistency answers
-- **Visualize Results**: Streamlit UI with overview metrics, results table, and failure cases
+1. Install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-## Structure
+2. Set API keys in `.env`:
+   ```
+   SENSO_API_KEY=your_senso_key
+   ANTHROPIC_API_KEY=your_claude_key
+   OPENAI_API_KEY=your_openai_key
+   ```
 
-```
-.
-├── main.py              # Run evaluation, query Senso, save results
-├── evaluator.py         # Metrics: similarity, consistency, failure flags
-├── app.py              # Streamlit UI
-├── requirements.txt    # Dependencies
-├── data/
-│   ├── docs/           # Sample documents
-│   ├── questions.json  # Test questions
-│   └── results.json    # Evaluation results (generated)
-└── .env                # SENSO_API_KEY
-```
+## Usage
 
-## Quick Start
-
-### 1. Install Dependencies
+Run evaluation:
 ```bash
-pip3 install -r requirements.txt
+python main.py
 ```
 
-### 2. Set API Key
-Ensure `.env` contains your Senso API key:
-```
-SENSO_API_KEY=your_key_here
-```
+This queries all models for each question in `data/questions.json` and saves results to `data/results.json`.
 
-### 3. Run Evaluation
-```bash
-python3 main.py
-```
+## Results
 
-This queries Senso for each question and saves results to `data/results.json`.
-
-### 4. View Results
+Results include quality scores (similarity to expected answers) and consistency scores (similarity between retries). Comparison summary shows average performance per model.
 ```bash
 streamlit run app.py
 ```
@@ -62,35 +42,3 @@ Opens UI at `http://localhost:8501` showing:
 - **Quality Score** (0-1): Similarity between answer and expected answer
 - **Consistency Score** (0-1): Similarity between two responses to same question
 - **Failure Flags**: `low_quality` (< 0.5) or `low_consistency` (< 0.7)
-
-## Example
-
-```python
-from evaluator import compute_similarity, check_consistency
-
-# Similarity between two texts
-score = compute_similarity("Python is a language", "Python is a programming language")
-# Returns: ~0.95
-
-# Consistency check
-def query_fn(q):
-    return "Python is great"
-
-consistency = check_consistency("What is Python?", query_fn)
-# Returns: consistency score based on multiple queries
-```
-
-## Tech Stack
-
-- **Python 3.8+**
-- **requests**: HTTP calls
-- **sentence-transformers**: Embeddings for similarity
-- **streamlit**: Web UI
-- **python-dotenv**: Load environment variables
-
-## Notes
-
-- Everything runs locally
-- No database needed
-- Mock Senso responses if API unavailable
-- Simple, minimal UI focused on evaluation
