@@ -11,46 +11,28 @@ SENSO_API_KEY = os.getenv("SENSO_API_KEY")
 if not SENSO_API_KEY:
     raise ValueError("SENSO_API_KEY not found in .env file")
 
-SENSO_API_URL = "https://api.senso.ai/v1/query"
+SENSO_API_URL = "https://apiv2.senso.ai/api/v1/org/search"
 
 
 def query_senso(question: str) -> dict:
     """Query Senso API and return answer with sources."""
     headers = {
-        "Authorization": f"Bearer {SENSO_API_KEY}",
+        "X-API-Key": SENSO_API_KEY,
         "Content-Type": "application/json"
     }
     
     payload = {
-        "query": question,
-        "top_k": 3
+        "query": question
     }
     
     try:
         # Try primary endpoint first
-        response = requests.post(SENSO_API_URL, json=payload, headers=headers, timeout=10)
+        response = requests.post(SENSO_API_URL, json=payload, headers=headers, timeout=30)
         response.raise_for_status()
         return response.json()
     except Exception as e:
         print(f"Senso API error: {e}")
-        # Return mock response for demonstration
-        import random
-        mock_answers = {
-            "remote work": "Employees can work from home up to 3 days per week with office presence required on Tuesdays and Thursdays.",
-            "leave": "Employees get 20 days of annual leave per year.",
-            "office hours": "Office hours are 9 AM to 6 PM with 1 hour lunch break.",
-            "python": "Python is a high-level, interpreted programming language.",
-            "storage": "The pro tier includes 100 GB of storage.",
-            "authentication": "Email/password login and OAuth2 integration are supported.",
-            "api rate": "The free tier API rate limit is 1000 requests per hour.",
-            "compliance": "The product is SOC 2 Type II certified and GDPR compliant."
-        }
-        
-        # Find matching mock answer
-        q_lower = question.lower()
-        answer = next((v for k, v in mock_answers.items() if k in q_lower), "I don't have information about that.")
-        
-        return {"answer": answer, "sources": [{"name": "docs", "relevance": random.uniform(0.7, 0.95)}]}
+        raise ValueError(f"Failed to query Senso API: {e}")
 
 
 def load_questions(filepath: str) -> list:
