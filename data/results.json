@@ -3,37 +3,132 @@
     "model": "senso",
     "id": 1,
     "question": "What is the remote work policy?",
-    "answer": "- Employees may work from home up to **3 days per week**.  \n- **Office presence is required on Tuesdays and Thursdays.**\n\n(For scheduling, standard office hours are **9:00 AM to 6:00 PM** with a 1\u2011hour lunch break from **1:00 PM to 2:00 PM**.)",
+    "answer": "**Remote Work Policy**\n\n- Employees may work from home up to **3 days per week**.  \n- **Office presence is required on Tuesdays and Thursdays.**\n\nThis is the full remote work policy as stated in the company policy document.",
     "expected_answer": "Employees can work from home up to 3 days per week with office presence required on Tuesdays and Thursdays.",
     "sources": [],
-    "quality_score": 0.8585497140884399,
-    "consistency_score": 0.707042932510376,
+    "quality_score": 0.7977694869041443,
+    "consistency_score": 0.9589952230453491,
     "issues": []
   },
   {
-    "model": "claude",
-    "id": 1,
-    "question": "What is the remote work policy?",
-    "answer": "",
-    "expected_answer": "Employees can work from home up to 3 days per week with office presence required on Tuesdays and Thursdays.",
+    "model": "senso",
+    "id": 2,
+    "question": "How many days of annual leave do employees get?",
+    "answer": "Employees receive **20 days of annual leave per year** according to the company Leave Policy.",
+    "expected_answer": "Employees get 20 days of annual leave per year.",
     "sources": [],
-    "quality_score": 0.0,
-    "consistency_score": null,
-    "issues": [
-      "low_quality"
-    ]
+    "quality_score": 0.935117244720459,
+    "consistency_score": 0.9739233255386353,
+    "issues": []
   },
   {
-    "model": "openai",
-    "id": 1,
-    "question": "What is the remote work policy?",
-    "answer": "",
-    "expected_answer": "Employees can work from home up to 3 days per week with office presence required on Tuesdays and Thursdays.",
+    "model": "senso",
+    "id": 3,
+    "question": "What are the office hours?",
+    "answer": "**Standard office hours:** 9:00 AM to 6:00 PM, with a 1-hour lunch break from **1:00 PM to 2:00 PM**.",
+    "expected_answer": "Office hours are 9 AM to 6 PM with 1 hour lunch break from 1 PM to 2 PM.",
     "sources": [],
-    "quality_score": 0.0,
-    "consistency_score": null,
-    "issues": [
-      "low_quality"
-    ]
+    "quality_score": 0.9115772843360901,
+    "consistency_score": 0.8725214004516602,
+    "issues": []
+  },
+  {
+    "model": "senso",
+    "id": 4,
+    "question": "What programming language is discussed in the documentation?",
+    "answer": "The documentation discusses the **Python** programming language.",
+    "expected_answer": "Python is a high-level, interpreted programming language known for its simplicity and readability.",
+    "sources": [],
+    "quality_score": 0.7936061024665833,
+    "consistency_score": 0.8652014434337616,
+    "issues": []
+  },
+  {
+    "model": "senso",
+    "id": 5,
+    "question": "What are the core features of Python?",
+    "answer": "Here are the core features of Python (from the provided document):\n\n- **Dynamic typing** \u2014 variables don't need type declarations.  \n- **Indentation-based syntax** \u2014 makes code clean and readable.  \n- **\"Batteries included\"** \u2014 a rich standard library.  \n- **Supports multiple paradigms** \u2014 object-oriented *and* functional programming support.",
+    "expected_answer": "Python has dynamic typing, indentation-based syntax, a rich standard library, and supports both object-oriented and functional programming.",
+    "sources": [],
+    "quality_score": 0.7612963318824768,
+    "consistency_score": 0.8856454789638519,
+    "issues": []
+  },
+  {
+    "model": "senso",
+    "id": 6,
+    "question": "What is the storage capacity for the pro tier?",
+    "answer": "**Pro tier storage:** 100 GB.",
+    "expected_answer": "The pro tier includes 100 GB of storage.",
+    "sources": [],
+    "quality_score": 0.8730384111404419,
+    "consistency_score": 0.8636184930801392,
+    "issues": []
+  },
+  {
+    "model": "senso",
+    "id": 7,
+    "question": "What authentication methods are supported?",
+    "answer": "From the product features, supported authentication methods are:\n\n- **Email + password login** (with **password reset via email**)  \n- **Two\u2011factor authentication** (2FA) \u2014 available  \n- **OAuth2 integration** \u2014 Google and GitHub providers supported\n\nIf you want details on configuring any of these (e.g., enabling OAuth or 2FA), tell me which one and I\u2019ll pull together next steps.",
+    "expected_answer": "Email and password login, two-factor authentication, password reset via email, and OAuth2 integration with Google and GitHub.",
+    "sources": [],
+    "quality_score": 0.8258908987045288,
+    "consistency_score": 0.8594764769077301,
+    "issues": []
+  },
+  {
+    "model": "senso",
+    "id": 8,
+    "question": "What is the API rate limit for the free tier?",
+    "answer": "The API rate limit for the free tier is **1,000 requests per hour** (per the Product Features Guide).",
+    "expected_answer": "The free tier API rate limit is 1000 requests per hour.",
+    "sources": [],
+    "quality_score": 0.9611307978630066,
+    "consistency_score": 0.8596282601356506,
+    "issues": []
+  },
+  {
+    "model": "senso",
+    "id": 9,
+    "question": "What is the sick leave policy?",
+    "answer": "**Sick leave:** 10 days per year.\n\nThe company policy document only specifies the sick leave entitlement as above; it does not include details on reporting, carryover, certification, or approval procedures. If you want, I can help you draft a request or suggest questions to ask HR.",
+    "expected_answer": "Employees get 10 days of sick leave per year.",
+    "sources": [],
+    "quality_score": 0.7535132169723511,
+    "consistency_score": 0.8674740195274353,
+    "issues": []
+  },
+  {
+    "model": "senso",
+    "id": 10,
+    "question": "What compliance certifications does the product have?",
+    "answer": "According to the Product Features guide, the product is:\n\n- **SOC 2 Type II certified**\n- **GDPR compliant**\n\n(Other security features listed include end-to-end encryption and IP whitelist support, but those are security capabilities rather than compliance certifications.)\n\nWould you like copies of the SOC 2 report or GDPR compliance details?",
+    "expected_answer": "The product is SOC 2 Type II certified and GDPR compliant.",
+    "sources": [],
+    "quality_score": 0.8510164022445679,
+    "consistency_score": 0.8995935916900635,
+    "issues": []
+  },
+  {
+    "model": "senso",
+    "id": 11,
+    "question": "How should business expenses be handled?",
+    "answer": "Per the company Expense Policy:\n\n1. **Obtain pre-approval** before incurring any business expenses.  \n2. **Keep the receipt** for the expense.  \n3. **Submit the receipt within 7 days** to receive reimbursement.\n\nThose are the requirements stated in the policy.",
+    "expected_answer": "Business expenses must be pre-approved and receipts must be submitted within 7 days for reimbursement.",
+    "sources": [],
+    "quality_score": 0.83907151222229,
+    "consistency_score": 0.9063606858253479,
+    "issues": []
+  },
+  {
+    "model": "senso",
+    "id": 12,
+    "question": "What data types are available in Python?",
+    "answer": "Based on the provided material, Python includes these core data types:\n\n- **int**: integer numbers  \n- **float**: decimal numbers  \n- **str**: text strings  \n- **list**: ordered collection of items  \n- **dict**: key-value pairs  \n- **bool**: True or False\n\nAdditional useful note from the context:\n- Python uses **dynamic typing** (variables don't need explicit type declarations) and you assign values with the `=` operator; Python infers the type automatically.",
+    "expected_answer": null,
+    "sources": [],
+    "quality_score": null,
+    "consistency_score": 0.9508094489574432,
+    "issues": []
   }
 ]
