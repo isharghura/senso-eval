@@ -1,122 +1,39 @@
 [
   {
+    "model": "senso",
     "id": 1,
     "question": "What is the remote work policy?",
-    "answer": "**Remote Work Policy**\n\n- Employees may work from home up to **3 days per week**.  \n- **Office presence is required on Tuesdays and Thursdays.**\n\n(Source: Company Policy Document)",
+    "answer": "- Employees may work from home up to **3 days per week**.  \n- **Office presence is required on Tuesdays and Thursdays.**\n\n(For scheduling, standard office hours are **9:00 AM to 6:00 PM** with a 1\u2011hour lunch break from **1:00 PM to 2:00 PM**.)",
     "expected_answer": "Employees can work from home up to 3 days per week with office presence required on Tuesdays and Thursdays.",
     "sources": [],
-    "quality_score": 0.8353886008262634,
-    "consistency_score": 0.9616739749908447,
+    "quality_score": 0.8585497140884399,
+    "consistency_score": 0.707042932510376,
     "issues": []
   },
   {
-    "id": 2,
-    "question": "How many days of annual leave do employees get?",
-    "answer": "According to the company policy, employees receive **20 days of annual leave per year**.",
-    "expected_answer": "Employees get 20 days of annual leave per year.",
+    "model": "claude",
+    "id": 1,
+    "question": "What is the remote work policy?",
+    "answer": "",
+    "expected_answer": "Employees can work from home up to 3 days per week with office presence required on Tuesdays and Thursdays.",
     "sources": [],
-    "quality_score": 0.92906653881073,
-    "consistency_score": 0.9370860755443573,
-    "issues": []
+    "quality_score": 0.0,
+    "consistency_score": null,
+    "issues": [
+      "low_quality"
+    ]
   },
   {
-    "id": 3,
-    "question": "What are the office hours?",
-    "answer": "**Standard office hours:** **9:00 AM \u2013 6:00 PM**, with a 1\u2011hour lunch break from **1:00 PM \u2013 2:00 PM**.\n\nNote: the policy also states employees can work from home up to 3 days per week and office presence is required on **Tuesdays and Thursdays**.",
-    "expected_answer": "Office hours are 9 AM to 6 PM with 1 hour lunch break from 1 PM to 2 PM.",
+    "model": "openai",
+    "id": 1,
+    "question": "What is the remote work policy?",
+    "answer": "",
+    "expected_answer": "Employees can work from home up to 3 days per week with office presence required on Tuesdays and Thursdays.",
     "sources": [],
-    "quality_score": 0.8540648221969604,
-    "consistency_score": 0.884788990020752,
-    "issues": []
-  },
-  {
-    "id": 4,
-    "question": "What programming language is discussed in the documentation?",
-    "answer": "**Python.**\n\nSupporting details from the documentation:\n- Title: *Introduction to Python Programming*\n- Described as a \"high-level, interpreted programming language\" with features such as dynamic typing and indentation-based syntax.\n- Mentions data types (int, float, str, list, dict, bool), function definition using `def`, and common libraries (`requests`, `numpy`, `pandas`).",
-    "expected_answer": "Python is a high-level, interpreted programming language known for its simplicity and readability.",
-    "sources": [],
-    "quality_score": 0.786182165145874,
-    "consistency_score": 0.8988892138004303,
-    "issues": []
-  },
-  {
-    "id": 5,
-    "question": "What are the core features of Python?",
-    "answer": "Python is a high-level, interpreted programming language known for its simplicity and readability. Core features (from the provided context):\n\n1. **Dynamic typing** \u2014 variables don't need explicit type declarations; Python infers types.  \n2. **Indentation-based syntax** \u2014 uses indentation to structure code, which makes code clean and readable.  \n3. **\"Batteries included\"** \u2014 a rich standard library is provided out of the box.  \n4. **Supports multiple paradigms** \u2014 both object-oriented and functional programming are supported.\n\nRelated useful points from the context:\n- Common built-in data types: **int**, **float**, **str**, **list**, **dict**, **bool**.  \n- Variables are assigned with the **=** operator.  \n- Functions are defined with the **def** keyword and can take parameters and return values.  \n- Common external libraries mentioned: **requests**, **numpy**, **pandas**.",
-    "expected_answer": "Python has dynamic typing, indentation-based syntax, a rich standard library, and supports both object-oriented and functional programming.",
-    "sources": [],
-    "quality_score": 0.7745997905731201,
-    "consistency_score": 0.8697099685668945,
-    "issues": []
-  },
-  {
-    "id": 6,
-    "question": "What is the storage capacity for the pro tier?",
-    "answer": "The Pro tier includes **100 GB** of storage.\n\nAdditional storage-related features in the product guide:\n- Automatic daily backups  \n- 30-day retention of deleted files",
-    "expected_answer": "The pro tier includes 100 GB of storage.",
-    "sources": [],
-    "quality_score": 0.8723948001861572,
-    "consistency_score": 0.8602984845638275,
-    "issues": []
-  },
-  {
-    "id": 7,
-    "question": "What authentication methods are supported?",
-    "answer": "Based on the provided product features, the supported authentication methods are:\n\n- **Email + password login**\n- **Two-factor authentication (2FA) \u2014 available** *(specific 2FA mechanism not specified in the context)*\n- **Password reset via email**\n- **OAuth2 integration:** Google and GitHub\n\nIf you need details on how 2FA is implemented or how OAuth2 is configured (scopes, redirect URIs, API keys), that information isn\u2019t included in the provided context \u2014 tell me what you want and I\u2019ll look for or request those specifics.",
-    "expected_answer": "Email and password login, two-factor authentication, password reset via email, and OAuth2 integration with Google and GitHub.",
-    "sources": [],
-    "quality_score": 0.8038468360900879,
-    "consistency_score": 0.8654566407203674,
-    "issues": []
-  },
-  {
-    "id": 8,
-    "question": "What is the API rate limit for the free tier?",
-    "answer": "**API rate limit (free tier): 1000 requests per hour.**",
-    "expected_answer": "The free tier API rate limit is 1000 requests per hour.",
-    "sources": [],
-    "quality_score": 0.8589345812797546,
-    "consistency_score": 0.8975376784801483,
-    "issues": []
-  },
-  {
-    "id": 9,
-    "question": "What is the sick leave policy?",
-    "answer": "**Sick leave:** 10 days per year.\n\n(This is what the Company Policy document's Leave Policy states. The provided excerpt does not include further details such as accrual, carryover, paid/unpaid status, or documentation requirements.)",
-    "expected_answer": "Employees get 10 days of sick leave per year.",
-    "sources": [],
-    "quality_score": 0.7904866337776184,
-    "consistency_score": 0.8219594061374664,
-    "issues": []
-  },
-  {
-    "id": 10,
-    "question": "What compliance certifications does the product have?",
-    "answer": "From the provided product documentation (product_features.md):\n\n- **SOC 2 Type II certified**  \n- **GDPR compliant**\n\nNote: The docs also list security features like end-to-end encryption and IP whitelist support, but no other compliance certifications are mentioned in the available materials.",
-    "expected_answer": "The product is SOC 2 Type II certified and GDPR compliant.",
-    "sources": [],
-    "quality_score": 0.839372992515564,
-    "consistency_score": 0.8940390348434448,
-    "issues": []
-  },
-  {
-    "id": 11,
-    "question": "How should business expenses be handled?",
-    "answer": "According to the Company Policy:\n\n- **Business expenses must be pre-approved.**  \n- **Submit receipts within 7 days** to be eligible for reimbursement.\n\nSee the Company Policy document for any additional details or procedures.",
-    "expected_answer": "Business expenses must be pre-approved and receipts must be submitted within 7 days for reimbursement.",
-    "sources": [],
-    "quality_score": 0.928865373134613,
-    "consistency_score": 0.9303187727928162,
-    "issues": []
-  },
-  {
-    "id": 12,
-    "question": "What data types are available in Python?",
-    "answer": "According to the provided material, core Python data types include:\n\n- **int**: integer numbers  \n- **float**: decimal (floating-point) numbers  \n- **str**: text strings  \n- **list**: ordered collection of items  \n- **dict**: key-value pairs  \n- **bool**: True or False\n\nNote: Python uses dynamic typing \u2014 variables don\u2019t need explicit type declarations and Python infers the type (you assign values with =).",
-    "expected_answer": null,
-    "sources": [],
-    "quality_score": null,
-    "consistency_score": 0.9554482102394104,
-    "issues": []
+    "quality_score": 0.0,
+    "consistency_score": null,
+    "issues": [
+      "low_quality"
+    ]
   }
 ]
