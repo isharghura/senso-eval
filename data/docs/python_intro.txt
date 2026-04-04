@@ -1,0 +1,28 @@
+Introduction to Python Programming
+
+Python is a high-level, interpreted programming language known for its simplicity and readability.
+
+Core Features:
+1. Dynamic typing - variables don't need type declarations
+2. Indentation-based syntax - makes code clean and readable
+3. Batteries included - rich standard library
+4. Object-oriented and functional programming support
+
+Data Types:
+- int: integer numbers
+- float: decimal numbers
+- str: text strings
+- list: ordered collection of items
+- dict: key-value pairs
+- bool: True or False
+
+Variables and Assignment:
+You can assign values using the = operator. Python infers the type automatically.
+
+Functions:
+Define functions using the def keyword. Functions can take parameters and return values.
+
+Common Libraries:
+- requests: for HTTP requests
+- numpy: for numerical computing
+- pandas: for data analysis
