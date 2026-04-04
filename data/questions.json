@@ -3,59 +3,6 @@
     "id": 1,
     "question": "What is the remote work policy?",
     "expected_answer": "Employees can work from home up to 3 days per week with office presence required on Tuesdays and Thursdays."
-  },
-  {
-    "id": 2,
-    "question": "How many days of annual leave do employees get?",
-    "expected_answer": "Employees get 20 days of annual leave per year."
-  },
-  {
-    "id": 3,
-    "question": "What are the office hours?",
-    "expected_answer": "Office hours are 9 AM to 6 PM with 1 hour lunch break from 1 PM to 2 PM."
-  },
-  {
-    "id": 4,
-    "question": "What programming language is discussed in the documentation?",
-    "expected_answer": "Python is a high-level, interpreted programming language known for its simplicity and readability."
-  },
-  {
-    "id": 5,
-    "question": "What are the core features of Python?",
-    "expected_answer": "Python has dynamic typing, indentation-based syntax, a rich standard library, and supports both object-oriented and functional programming."
-  },
-  {
-    "id": 6,
-    "question": "What is the storage capacity for the pro tier?",
-    "expected_answer": "The pro tier includes 100 GB of storage."
-  },
-  {
-    "id": 7,
-    "question": "What authentication methods are supported?",
-    "expected_answer": "Email and password login, two-factor authentication, password reset via email, and OAuth2 integration with Google and GitHub."
-  },
-  {
-    "id": 8,
-    "question": "What is the API rate limit for the free tier?",
-    "expected_answer": "The free tier API rate limit is 1000 requests per hour."
-  },
-  {
-    "id": 9,
-    "question": "What is the sick leave policy?",
-    "expected_answer": "Employees get 10 days of sick leave per year."
-  },
-  {
-    "id": 10,
-    "question": "What compliance certifications does the product have?",
-    "expected_answer": "The product is SOC 2 Type II certified and GDPR compliant."
-  },
-  {
-    "id": 11,
-    "question": "How should business expenses be handled?",
-    "expected_answer": "Business expenses must be pre-approved and receipts must be submitted within 7 days for reimbursement."
-  },
-  {
-    "id": 12,
-    "question": "What data types are available in Python?"
   }
+
 ]

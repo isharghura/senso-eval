@@ -4,8 +4,6 @@ import numpy as np
 
 
 class EmbeddingCache:
-    """Simple cache for embeddings to avoid recomputation."""
-    
     def __init__(self):
         self.cache = {}
     
@@ -38,16 +36,6 @@ def _get_model():
 
 
 def compute_similarity(text1: str, text2: str) -> Optional[float]:
-    """
-    Compute cosine similarity between two texts using sentence embeddings.
-    
-    Args:
-        text1: First text string
-        text2: Second text string
-    
-    Returns:
-        Similarity score between 0 and 1, or None if inputs are invalid
-    """
     if text1 is None or text2 is None:
         return None
     
@@ -75,16 +63,6 @@ def compute_similarity(text1: str, text2: str) -> Optional[float]:
 
 
 def evaluate_answer_quality(answer: str, expected_answer: Optional[str] = None) -> Optional[float]:
-    """
-    Evaluate the quality of an answer by comparing it to an expected answer.
-    
-    Args:
-        answer: The generated or provided answer
-        expected_answer: The reference/expected answer. If None, returns None.
-    
-    Returns:
-        Quality score between 0 and 1, or None if no expected answer provided
-    """
     if expected_answer is None:
         return None
     
@@ -105,18 +83,6 @@ def check_consistency(
     query_fn: Callable[[str], str],
     num_retries: int = 2
 ) -> Optional[float]:
-    """
-    Check consistency of answers by querying the same question multiple times.
-    
-    Args:
-        question: The question to query
-        query_fn: A callable that takes a question and returns an answer
-        num_retries: Number of times to query (total queries = num_retries + 1)
-    
-    Returns:
-        Consistency score between 0 and 1 (average pairwise similarity),
-        or None if unable to compute
-    """
     if question is None or not str(question).strip():
         return None
     
@@ -159,18 +125,6 @@ def flag_failures(
     quality_threshold: float = 0.5,
     consistency_threshold: float = 0.7
 ) -> List[str]:
-    """
-    Flag failures based on quality and consistency scores.
-    
-    Args:
-        quality_score: Answer quality score (0-1) or None
-        consistency_score: Answer consistency score (0-1) or None
-        quality_threshold: Minimum acceptable quality score
-        consistency_threshold: Minimum acceptable consistency score
-    
-    Returns:
-        List of issue strings detected (e.g., ['low_quality', 'low_consistency'])
-    """
     issues = []
     
     if quality_score is not None and quality_score < quality_threshold:
@@ -183,5 +137,4 @@ def flag_failures(
 
 
 def clear_embedding_cache():
-    """Clear the embedding cache to free memory."""
     _embedding_cache.clear()
