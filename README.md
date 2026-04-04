@@ -16,6 +16,17 @@ Evaluate Senso, Claude, and OpenAI on question answering over company documents.
    OPENAI_API_KEY=your_openai_key
    ```
 
+3. Configure models in `config.json`:
+   ```json
+   {
+     "models": {
+       "senso": true,
+       "claude": true,
+       "openai": false
+     }
+   }
+   ```
+
 ## Usage
 
 Run evaluation:
@@ -23,7 +34,7 @@ Run evaluation:
 python main.py
 ```
 
-This queries all models for each question in `data/questions.json` and saves results to `data/results.json`.
+This queries enabled models for each question in `data/questions.json` and saves results to `data/results.json`.
 
 ## Results
 
