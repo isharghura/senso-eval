@@ -31,3 +31,8 @@ pip install -r requirements.txt
 ```bash
 python main.py
 ```
+
+# 3. View results
+```bash
+streamlit run app.py
+```
