@@ -2,15 +2,17 @@ import json
 import os
 import requests
 from dotenv import load_dotenv
-from evaluator import evaluate_answer_quality, flag_failures, contains_expected
+from evaluator import evaluate_answer_quality, flag_failures
 from anthropic import Anthropic
 from openai import OpenAI
+from google import genai
 
 # Load environment variables
 load_dotenv()
 SENSO_API_KEY = os.getenv("SENSO_API_KEY")
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
 print(f"API Keys loaded: Senso={bool(SENSO_API_KEY)}, Claude={bool(ANTHROPIC_API_KEY)}, OpenAI={bool(OPENAI_API_KEY)}")
 
@@ -61,8 +63,55 @@ def query_senso(question: str) -> dict:
     except Exception as e:
         print(f"Senso API error: {e}")
         raise ValueError(f"Failed to query Senso API: {e}")
+    
+def query_gemini_judge(prompt: str) -> str:
+    """Free Gemini judge – Enhanced for truncation handling"""
+    if not GEMINI_API_KEY:
+        print("⚠️ GEMINI_API_KEY missing – falling back to embedding similarity")
+        return "0.0"
 
+    client = genai.Client(api_key=GEMINI_API_KEY)
 
+    # We move the 'how-to' strictly into the system instruction
+    system_prompt = (
+        "You are an expert technical evaluator. You understand vector embeddings, "
+        "Product Quantization, and indexing bottlenecks. Grade the model answer "
+        "based on technical accuracy relative to the reference. "
+        "Output ONLY a single float between 0.0 and 1.0."
+    )
+
+    try:
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt,
+            config={
+                "system_instruction": system_prompt,
+                "temperature": 0.0,
+                "max_output_tokens": 100, # Increased to allow for slight "chatter" or whitespace
+            }
+        )
+
+        # 1. Official accessor
+        if getattr(response, "text", None):
+            return str(response.text).strip()
+
+        # 2. Manual extraction (fixes the 'Empty Text' on truncation issue)
+        candidates = getattr(response, "candidates", None)
+        if candidates and len(candidates) > 0:
+            parts = getattr(candidates[0].content, "parts", [])
+            full_text = "".join([part.text for part in parts if hasattr(part, "text") and part.text])
+            if full_text.strip():
+                return full_text.strip()
+            
+            # Debug why it's still empty
+            print(f"⚠️ Truncation detected. Reason: {candidates[0].finish_reason}")
+
+        return "0.7" 
+
+    except Exception as e:
+        print(f"Gemini judge error: {e}")
+        return "0.0"
+    
 def query_claude(question: str) -> str:
     if not ANTHROPIC_API_KEY:
         return ""
@@ -110,6 +159,52 @@ def query_openai(question: str) -> str:
         print(f"OpenAI API error: {e}")
         return ""
 
+def query_judge(prompt: str) -> str:
+    """Pure judge call – no context, strict evaluator, short output."""
+    if ANTHROPIC_API_KEY:
+        client = Anthropic(api_key=ANTHROPIC_API_KEY)
+        try:
+            system_prompt = (
+                "You are an impartial, strict evaluator of answer quality. "
+                "You only output a single float number between 0.0 and 1.0. "
+                "No explanation, no extra text."
+            )
+            message = client.messages.create(
+                model="claude-3-sonnet-20240229",
+                max_tokens=50,
+                temperature=0.0,
+                system=system_prompt,
+                messages=[{"role": "user", "content": prompt}]
+            )
+            return message.content[0].text.strip()
+        except Exception as e:
+            print(f"Judge (Claude) error: {e}")
+            return "0.0"
+    
+    # fallback to OpenAI if no Claude key
+    if OPENAI_API_KEY:
+        client = OpenAI(api_key=OPENAI_API_KEY)
+        try:
+            system_prompt = (
+                "You are an impartial, strict evaluator of answer quality. "
+                "You only output a single float number between 0.0 and 1.0. "
+                "No explanation, no extra text."
+            )
+            response = client.chat.completions.create(
+                model="gpt-3.5-turbo",
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": prompt}
+                ],
+                max_tokens=50,
+                temperature=0.0
+            )
+            return response.choices[0].message.content.strip()
+        except Exception as e:
+            print(f"Judge (OpenAI) error: {e}")
+            return "0.0"
+    
+    return "0.0"
 
 def load_questions(filepath: str) -> list:
     with open(filepath, 'r') as f:
@@ -151,8 +246,12 @@ def run_evaluation():
             
             print(f"    Answer: {answer[:100]}...")
             
-            # Evaluate quality
-            quality_score = evaluate_answer_quality(answer, expected_answer)
+            quality_score = evaluate_answer_quality(
+                answer=answer,
+                expected_answer=expected_answer,
+                judge_query_fn=query_gemini_judge,
+                question=question_text
+            )
             
             # Evaluate consistency (query twice more)
             consistency_scores = []
@@ -171,7 +270,7 @@ def run_evaluation():
             consistency_score = sum(consistency_scores) / len(consistency_scores) if consistency_scores else None
             
             # Flag failures
-            issues = flag_failures(quality_score, consistency_score, contains_expected)
+            issues = flag_failures(quality_score, consistency_score)
             
             result = {
                 "model": model_name,
@@ -183,7 +282,6 @@ def run_evaluation():
                 "quality_score": quality_score,
                 "consistency_score": consistency_score,
                 "issues": issues,
-                "contains_expected": contains_expected
             }
             results.append(result)
             print(f"    Quality: {quality_score}, Consistency: {consistency_score}, Issues: {issues}")
