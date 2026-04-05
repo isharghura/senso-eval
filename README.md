@@ -1,10 +1,10 @@
-# Model Evaluation Pipeline
+# Senso Eval
 
-Simple evaluation framework for comparing LLMs (Senso, Claude, OpenAI) on a set of questions using quality + consistency metrics.
+Simple evaluation framework for evaluating Senso on a set of questions using quality + consistency metrics.
 
 ## What it does
 
-- Runs questions from `data/questions.json` against multiple models
+- Runs questions from `data/questions.json`
 - Scores answers using:
   - **LLM judge** (Gemini / Claude / OpenAI fallback)
   - **Embedding similarity** (MiniLM)
