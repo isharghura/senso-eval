@@ -32,7 +32,7 @@ pip install -r requirements.txt
 python main.py
 ```
 
-# 3. View results
+### 3. View results
 ```bash
 streamlit run app.py
 ```
