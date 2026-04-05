@@ -69,14 +69,22 @@ def evaluate_answer_quality(answer: str, expected_answer: Optional[str] = None) 
     if answer is None:
         return 0.0
     
+    if contains_expected(answer, expected_answer):
+        return 0.8
+    
+    # fallback to similarity
     similarity = compute_similarity(answer, expected_answer)
     
-    # If compute_similarity returns None, treat as low quality
     if similarity is None:
         return 0.0
     
     return similarity
 
+def contains_expected(answer: str, expected: str, threshold: float = 0.7) -> bool:
+    sim = compute_similarity(expected, answer)
+    if sim is None:
+        return False
+    return sim > threshold
 
 def check_consistency(
     question: str,
@@ -120,21 +128,24 @@ def check_consistency(
 
 
 def flag_failures(
-    quality_score: Optional[float],
-    consistency_score: Optional[float],
+    quality_score,
+    consistency_score,
+    contains_key,
     quality_threshold: float = 0.5,
     consistency_threshold: float = 0.7
-) -> List[str]:
+):
     issues = []
     
-    if quality_score is not None and quality_score < quality_threshold:
+    if not contains_key:
+        issues.append('missing_core_answer')
+    
+    elif quality_score is not None and quality_score < quality_threshold:
         issues.append('low_quality')
     
     if consistency_score is not None and consistency_score < consistency_threshold:
         issues.append('low_consistency')
     
     return issues
-
 
 def clear_embedding_cache():
     _embedding_cache.clear()
