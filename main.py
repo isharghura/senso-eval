@@ -2,7 +2,7 @@ import json
 import os
 import requests
 from dotenv import load_dotenv
-from evaluator import evaluate_answer_quality, flag_failures
+from evaluator import evaluate_answer_quality, flag_failures, contains_expected
 from anthropic import Anthropic
 from openai import OpenAI
 
@@ -171,7 +171,7 @@ def run_evaluation():
             consistency_score = sum(consistency_scores) / len(consistency_scores) if consistency_scores else None
             
             # Flag failures
-            issues = flag_failures(quality_score, consistency_score)
+            issues = flag_failures(quality_score, consistency_score, contains_expected)
             
             result = {
                 "model": model_name,
@@ -182,7 +182,8 @@ def run_evaluation():
                 "sources": sources,
                 "quality_score": quality_score,
                 "consistency_score": consistency_score,
-                "issues": issues
+                "issues": issues,
+                "contains_expected": contains_expected
             }
             results.append(result)
             print(f"    Quality: {quality_score}, Consistency: {consistency_score}, Issues: {issues}")
